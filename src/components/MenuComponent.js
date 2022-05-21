@@ -1,5 +1,6 @@
 // import { render } from "@testing-library/react";
 import React, { Component } from "react";
+import { DISHES } from "../shared/dishes";
 import {
   Card,
   CardImg,
@@ -13,18 +14,23 @@ import { Link } from "react-router-dom";
 class Menu extends Component {
   constructor(props) {
     super(props);
-    this.state = [];
+    this.state = {
+      dishes: DISHES,
+      selectedDish: null,
+    };
   }
 
   render() {
-    const menu = this.props.dishes.map((dish) => {
+    const menu = this.state.dishes.map((dish) => {
       return (
         <div className="col-12 col-md-5 m-1" key={dish.id}>
-          <Card>
-            <CardImg width="100%" src={dish.image} alt={dish.name} />
-            <CardImgOverlay>
-              <CardTitle>{dish.name}</CardTitle>
-            </CardImgOverlay>
+          <Card onClick={() => this.props.onClick(dish.id)}>
+            <Link to={`/menu/${dish.id}`}>
+              <CardImg width="100%" src={dish.image} alt={dish.name} />
+              <CardImgOverlay>
+                <CardTitle>{dish.name}</CardTitle>
+              </CardImgOverlay>
+            </Link>
           </Card>
         </div>
       );
@@ -33,12 +39,12 @@ class Menu extends Component {
     function RenderMenuItem({ dish, onClick }) {
       return (
         <Card>
-          <Link to={`/menu/${dish.id}`}>
-            <CardImg width="100%" src={dish.image} alt={dish.name} />
-            <CardImgOverlay>
-              <CardTitle>{dish.name}</CardTitle>
-            </CardImgOverlay>
-          </Link>
+          {/* <Link to={`/menu/${dish.id}`}> */}
+          <CardImg width="100%" src={dish.image} alt={dish.name} />
+          <CardImgOverlay>
+            <CardTitle>{dish.name}</CardTitle>
+          </CardImgOverlay>
+          {/* </Link> */}
         </Card>
       );
     }

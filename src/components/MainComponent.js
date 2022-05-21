@@ -25,6 +25,7 @@ class Main extends Component {
 
   onDishSelect(dishId) {
     this.setState({ selectedDish: dishId });
+    console.log(dishId);
   }
 
   render() {
@@ -54,7 +55,7 @@ class Main extends Component {
     return (
       <div>
         <Header />
-        <Menu
+        {/* <Menu
           dishes={this.state.dishes}
           onClick={(dishId) => this.onDishSelect(dishId)}
         />
@@ -64,13 +65,18 @@ class Main extends Component {
               (dish) => dish.id === this.state.selectedDish
             )[0]
           }
-        />
+        /> */}
         <Switch>
           <Route path="/home" component={HomePage} />
           <Route
             exact
             path="/menu"
-            component={() => <Menu dishes={this.state.dishes} />}
+            component={() => (
+              <Menu
+                dishes={this.state.dishes}
+                onClick={(dishId) => this.onDishSelect(dishId)}
+              />
+            )}
           />
           <Route path="/menu/:dishId" component={DishWithId} />
           <Route exact path="/contactus" component={Contact} />
